@@ -6,9 +6,7 @@ import axios from "axios";
 
 const OnBoard = ({ values, errors, touched, status, }) => {
     const [users, setUsers] = useState([]);
-    const changeHandler = e => {
-        setUsers({ ...users, [e.target.name]: e.target.value })
-    }
+    
 
     useEffect(() => {
         status && setUsers(users => [...users, status]);
@@ -17,7 +15,7 @@ const OnBoard = ({ values, errors, touched, status, }) => {
     return (
         <div>
             <Form>
-                <Field type="text" name="name" placeholder="Name" onChange={changeHandler} />
+                <Field type="text" name="name" placeholder="Name" />
                     
                 <Field type="email" name="email" placeholder="Email" />
                     {touched.email && errors.email && (
@@ -42,7 +40,7 @@ const OnBoard = ({ values, errors, touched, status, }) => {
                     <li>Name: {user.name}</li>
                     <li>Email: {user.email}</li>
                     <li>Password: {user.password}</li>
-                    <li>Checkbox: {user.termsOfService}</li>
+                    <li>{user.termsOfService}</li>
                 </ul>
             ))}
         </div>
@@ -51,7 +49,7 @@ const OnBoard = ({ values, errors, touched, status, }) => {
 };
 
 const FormikOnBoard = withFormik({
-    mapsPropsToValues({ name, email, password, termsOfService }) {
+    mapPropsToValues({ name, email, password, termsOfService }) {
         return {
             name: name || "",
             email: email || "",
